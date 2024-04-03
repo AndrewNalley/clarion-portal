@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
-import './Queries/SelectQueries'
-import './App.css'
+import './queries/SelectQueries'
+import './App.scss'
 import Dashboard from './pages/Dashboard'
 
 function App() {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import selectQueries from '../Queries/SelectQueries'
+import selectQueries from '../queries/SelectQueries'
 import { Student } from '../../types/interfaces'
 
 
