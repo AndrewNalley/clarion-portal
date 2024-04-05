@@ -11,5 +11,9 @@ export interface Student {
     past_lesson: any
     future_lesson: any
     notes: String
+}
 
+export interface User {
+    email: String
+    password: String
 }
