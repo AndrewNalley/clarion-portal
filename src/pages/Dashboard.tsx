@@ -35,7 +35,8 @@ const Dashboard = () => {
         const fetchUserName = async () => {
             try {
                 const userName = await fetchUserData(); // Await the promise returned by fetchUserData
-                setUserName(userName);
+                console.log('Finding the username ', userName)
+                setUserName(userName.email);
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }

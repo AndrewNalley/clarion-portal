@@ -7,7 +7,6 @@ import {
 
 // layout
 import RootLayout from './layouts/RootLayout'
-import './queries/SelectQueries'
 import './App.scss'
 
 // pages
@@ -32,9 +31,7 @@ const router = createBrowserRouter(
 function App() {
 
   return (
-
     <RouterProvider router={router} />
-
   );
 }
 
