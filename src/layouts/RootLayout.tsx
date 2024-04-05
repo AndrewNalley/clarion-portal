@@ -1,17 +1,19 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom'
 
-
-
-export default function RootLayout() {
+const RootLayout = () => {
 
 
     return (
-            <main className='app-main'>
-                {// footer ??
-                }
+        <main className='app-main'>
+            {// footer ??
+            }
+            
                 <Outlet />
-                {// header ?? 
-                }
-            </main>
+            
+            {// header ?? 
+            }
+        </main>
     );
 }
+
+export default RootLayout

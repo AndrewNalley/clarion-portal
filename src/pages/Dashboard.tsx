@@ -1,19 +1,51 @@
-import { useState, useEffect } from 'react';
-import selectQueries from '../queries/SelectQueries'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Student } from '../../types/interfaces'
+import selectQueries from '../queries/SelectQueries'
+import { checkAuth, handleLogout, fetchUserData } from '../components/authUtils'
 
-
-function Dashboard() {
+const Dashboard = () => {
+    const navigate = useNavigate()
+    const [userName, setUserName] = useState<string | null>("")
     const [students, setStudents] = useState<Student[]>([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        checkAuth(navigate).then(authenticated => {
+            if (!authenticated) {
+                navigate('/login')
+            } else {
+                setLoading(false)
+            }
+        })
+    }, [navigate])
+
+
 
     useEffect(() => {
         async function fetchStudents() {
-            const studentData = await selectQueries.readAllRows();
-            setStudents(studentData);
+            const studentData = await selectQueries.readAllRows()
+            setStudents(studentData)
+            setLoading(false)
         }
+        fetchStudents()
+    }, [])
 
-        fetchStudents();
+    useEffect(() => {
+        const fetchUserName = async () => {
+            try {
+                const userName = await fetchUserData(); // Await the promise returned by fetchUserData
+                setUserName(userName);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+        fetchUserName();
     }, []);
+
+
+
+
 
     // const showID = selectQueries.selectID()
     // const showDateCreated = selectQueries.selectCreated()
@@ -22,6 +54,13 @@ function Dashboard() {
 
     return (
         <>
+            {userName ? (
+                <h1>Welcome, {userName}</h1> // Render user name if available
+            ) : (
+                <h1>Loading...</h1> // Render loading indicator or handle other cases
+            )}
+            <button onClick={handleLogout()}>Logout</button>
+
             <h2>Student List</h2>
             <ul>
                 {students.map(student => (

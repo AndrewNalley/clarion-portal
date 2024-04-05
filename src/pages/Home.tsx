@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 
-export default function Home() {
+const Home = () => {
     return (
         <section>
             <h1>Clarion Studios Database</h1>
@@ -12,3 +12,5 @@ export default function Home() {
         </section>
     )
 }
+
+export default Home
