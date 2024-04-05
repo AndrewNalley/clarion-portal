@@ -9,7 +9,7 @@ const Login = () => {
 
     const checkCredentials = async (email: string, password: string) => {
         try {
-            const { data, error } = await supabase.auth.signInWithPassword({
+            let { data, error } = await supabase.auth.signInWithPassword({
                 email: email,
                 password: password,
             })
@@ -30,16 +30,16 @@ const Login = () => {
         try {
             const data = await checkCredentials(email, password)
             console.log('handleEmailLogin data: ', data)
-            if (data.user.aud === 'authenticated') {
-                console.log(data.user)
+            if (data === undefined) {
+                navigate('/')
+                console.log('User not found: Undefined data received')
+                return false;
+            } else {
+                console.log('data.user information: ', data.user)
                 console.log(data.user.aud)
                 // After successful login, redirect 
                 console.log('success!')
                 navigate('/dashboard')
-            } else {
-                navigate('/')
-                console.log(data.user)
-                return false;
             }
         } catch (error) {
             navigate('/')
