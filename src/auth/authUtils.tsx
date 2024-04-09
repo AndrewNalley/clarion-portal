@@ -1,5 +1,5 @@
 import { useNavigate, NavigateFunction } from 'react-router-dom'
-import supabase from './supabaseClient'
+import supabase from '../db/supabaseClient'
 import { User } from '../../types/interfaces'
 
 export const checkAuth = async (navigate: (path: string) => void): Promise<boolean> => {

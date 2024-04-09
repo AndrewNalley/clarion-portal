@@ -1,4 +1,4 @@
-import supabase from "../components/supabaseClient"
+import supabase from '../supabaseClient'
 
 async function selectID() {
     try {
@@ -7,8 +7,8 @@ async function selectID() {
             .select('id');
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (id) {
@@ -16,8 +16,8 @@ async function selectID() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -28,16 +28,16 @@ async function selectCreated() {
             .select('created_at')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (created) {
             return created
         }
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 
 }
@@ -49,8 +49,8 @@ async function selectFirstName() {
             .select('first_name')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (firstName) {
@@ -58,8 +58,8 @@ async function selectFirstName() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -70,8 +70,8 @@ async function selectLastName() {
             .select('last_name')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (lastName) {
@@ -79,8 +79,8 @@ async function selectLastName() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -91,8 +91,8 @@ async function selectPronouns() {
             .select('pronouns')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (pronoun) {
@@ -100,8 +100,8 @@ async function selectPronouns() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -112,8 +112,8 @@ async function selectEmail() {
             .select('email')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (email) {
@@ -121,8 +121,8 @@ async function selectEmail() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -133,8 +133,8 @@ async function selectPhone() {
             .select('phone')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (phone) {
@@ -142,8 +142,8 @@ async function selectPhone() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -154,8 +154,8 @@ async function selectVoiceType() {
             .select('voice_type')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (voiceType) {
@@ -163,8 +163,8 @@ async function selectVoiceType() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -175,8 +175,8 @@ async function selectPaymentHistory() {
             .select('payment_history')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (paymentHistory) {
@@ -184,8 +184,8 @@ async function selectPaymentHistory() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -196,8 +196,8 @@ async function selectPastLesson() {
             .select('past_lesson')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (pastLessons) {
@@ -205,8 +205,8 @@ async function selectPastLesson() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -217,8 +217,8 @@ async function selectFutureLesson() {
             .select('future_lesson')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (futureLessons) {
@@ -226,8 +226,8 @@ async function selectFutureLesson() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -238,8 +238,8 @@ async function selectNotes() {
             .select('notes')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (notes) {
@@ -247,8 +247,28 @@ async function selectNotes() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
+    }
+}
+
+async function readColumns(column1: string, column2: string) {
+    try {
+        let { data: studentColumns, error } = await supabase
+            .from('students')
+            .select(`${column1},${column2}`)
+
+        if (error) {
+            console.error('Error:', error)
+            return
+        }
+
+        if (studentColumns) {
+            return studentColumns
+        }
+    } catch (error) {
+        console.error('Error:', error)
+        return
     }
 }
 
@@ -259,8 +279,8 @@ async function readAllRows() {
             .select('*')
 
         if (error) {
-            console.error('Error:', error);
-            return;
+            console.error('Error:', error)
+            return
         }
 
         if (allStudents) {
@@ -268,13 +288,13 @@ async function readAllRows() {
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        return;
+        console.error('Error:', error)
+        return
     }
 }
 
 
-const selectQueries = {
+const ReadQueries = {
     selectID,
     selectCreated,
     selectFirstName,
@@ -287,7 +307,8 @@ const selectQueries = {
     selectPastLesson,
     selectFutureLesson,
     selectNotes,
+    readColumns,
     readAllRows
 }
 
-export default selectQueries
+export default ReadQueries
