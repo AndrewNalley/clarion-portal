@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Student } from '../../types/interfaces'
-import selectQueries from '../queries/SelectQueries'
-import { checkAuth, handleLogout, fetchUserData } from '../components/authUtils'
+import readQueries from '../db/queries/ReadQueries'
+import { checkAuth, handleLogout, fetchUserData } from '../auth/authUtils'
+
+import DBNotification from '../components/DBNotification'
+import DBActions from '../components/DBActions'
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -24,7 +27,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         async function fetchStudents() {
-            const studentData = await selectQueries.readAllRows()
+            const studentData = await readQueries.readAllRows()
             setStudents(studentData)
             setLoading(false)
         }
@@ -34,23 +37,23 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchUserName = async () => {
             try {
-                const userName = await fetchUserData(); // Await the promise returned by fetchUserData
+                const userName = await fetchUserData() // Await the promise returned by fetchUserData
                 console.log('Finding the username ', userName)
-                setUserName(userName.email);
+                setUserName(userName.email)
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                console.error('Error fetching user data:', error)
             }
-        };
-        fetchUserName();
-    }, []);
+        }
+        fetchUserName()
+    }, [])
 
 
 
 
 
-    // const showID = selectQueries.selectID()
-    // const showDateCreated = selectQueries.selectCreated()
-    // const showFirstName = selectQueries.selectFirstName()
+    // const showID = readQueries.selectID()
+    // const showDateCreated = readQueries.selectCreated()
+    // const showFirstName = readQueries.selectFirstName()
 
 
     return (
@@ -80,6 +83,8 @@ const Dashboard = () => {
                     </li>
                 ))}
             </ul>
+            <DBActions />
+            <DBNotification />
         </>
     )
 }
