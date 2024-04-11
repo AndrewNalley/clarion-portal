@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 
+
 const RootLayout = () => {
 
 
@@ -7,8 +8,9 @@ const RootLayout = () => {
         <main className='app-main'>
             {// footer ??
             }
-            
+
                 <Outlet />
+
             
             {// header ?? 
             }
