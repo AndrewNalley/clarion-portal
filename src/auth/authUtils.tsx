@@ -1,8 +1,9 @@
-import { useNavigate, NavigateFunction } from 'react-router-dom'
+import { useNavigate, redirect } from 'react-router-dom'
 import supabase from '../db/supabaseClient'
 import { User } from '../../types/interfaces'
 
-export const checkAuth = async (navigate: (path: string) => void): Promise<boolean> => {
+
+const checkAuth = async (navigate: (path: string) => void): Promise<boolean> => {
     try {
 
         const { data: { user } } = await supabase.auth.getUser()
@@ -15,13 +16,12 @@ export const checkAuth = async (navigate: (path: string) => void): Promise<boole
             return true
         }
     } catch (error) {
-        console.error("Error fetching user data:", error)
-        return false
+        throw new Error('Error checking authentication : ' + error)
     }
 }
 
 
-export const fetchUserData = async () => {
+const fetchUserData = async () => {
     try {
         const { data: { user } } = await supabase.auth.getUser()
         if (!user) {
@@ -32,12 +32,13 @@ export const fetchUserData = async () => {
             return user
         }
     } catch (error) {
-        console.error("Error fetching user data:", error)
-        return false
+        throw new Error('Error fetching user data: ' + error)
     }
 }
 
-export const handleLogout = () => {
+
+
+const handleLogout = () => {
     const navigate = useNavigate()
     const logout = async () => {
         try {
@@ -46,8 +47,10 @@ export const handleLogout = () => {
             navigate('/')
             console.log('Was there an error logging out? ', error)
         } catch (error) {
-            console.error("Error logging out:", error)
+            throw new Error('Error logging out: ' + error)
         }
     }
     return logout
 }
+
+export { checkAuth, fetchUserData, handleLogout }

@@ -1,40 +1,26 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import supabase from '../db/supabaseClient';
+import supabase from '../db/supabaseClient'
+import { useNavigate, redirect } from 'react-router-dom'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
-    const checkCredentials = async (email: string, password: string) => {
+
+    const handleEmailLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         try {
             let { data, error } = await supabase.auth.signInWithPassword({
                 email: email,
                 password: password,
             })
+
             if (error) {
                 console.log('Error checking Credentials', error)
-                return error
+                throw redirect('/login')
             } else {
                 console.log('Checking credentials', data)
-                return data
-            }
-        } catch (error) {
-            console.error('Error in Credentials function', error)
-        }
-    }
-
-    const handleEmailLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
-            const data = await checkCredentials(email, password)
-            console.log('handleEmailLogin data: ', data)
-            if (data === undefined) {
-                navigate('/')
-                console.log('User not found: Undefined data received')
-                return false;
-            } else {
                 console.log('data.user information: ', data.user)
                 console.log(data.user.aud)
                 // After successful login, redirect 
@@ -42,12 +28,10 @@ const Login = () => {
                 navigate('/dashboard')
             }
         } catch (error) {
-            navigate('/')
             console.error('Email Login Error: ', error)
+            throw new Error('Email Login Error: ' + error)
         }
     }
-
-
 
     return (
         <>

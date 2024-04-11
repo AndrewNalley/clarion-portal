@@ -21,7 +21,7 @@ const InsertAction = () => {
             setLastName('')
             setPronouns('')
             setEmail('')
-            setPhone(0)
+            setPhone(1234567890)
             setVoiceType('')
             setNotes('')
 

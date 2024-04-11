@@ -4,7 +4,7 @@ const NotFound = () => {
   return (
     <section>
       <h1>Page not found :( </h1>
-      <h2>Go to the <NavLink to=''>Homepage</NavLink>.</h2>
+      <h2>Go to the <NavLink to='/'>Homepage</NavLink>.</h2>
     </section>
   )
 }
