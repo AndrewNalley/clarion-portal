@@ -1,34 +1,3 @@
-
-# Clarion Portal
-
-## Description
-
-- Web app for a Music Teacher who needs to keep track of students and student payments. 
-
-- Utilizes supabase for both user authentication and the PostgreSQL database. 
-
-
-## Table of Contents
-
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
-- [Features](#features)
-- [Tests](#tests)
-
-
-## Usage
-
-The user will be able to manage students in one dashboard and can easily update or add student information.
-
-## Credits
-
-Semantic CSS: 
-https://picocss.com/docs/
-
-
-## License
-
 MIT License
 
 Copyright (c) 2024 Andrew Nalley
@@ -50,17 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-## Features
-
-Typescript
-
-React BrowserRouter
-
-Pico CSS
-
-Responsive, mobile-friendly
-
-
