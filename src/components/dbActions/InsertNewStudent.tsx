@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import changeQueries from '../db/queries/ChangeQueries'
+import changeQueries from '../../db/queries/ChangeQueries'
 
-const InsertAction = () => {
+const InsertNewStudent = () => {
     const [firstName, setfirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [pronouns, setPronouns] = useState('')
@@ -110,4 +110,4 @@ const InsertAction = () => {
 }
 
 
-export default InsertAction
+export default InsertNewStudent

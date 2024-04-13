@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Student } from '../../types/interfaces'
+import { Student, User } from '../../types/interfaces'
 import readQueries from '../db/queries/ReadQueries'
 import { checkAuth, handleLogout, fetchUserData } from '../auth/authUtils'
 
 import DBNotification from '../components/DBNotification'
-import DBActions from '../components/DBActions'
+import InsertNewStudent from '../components/dbActions/InsertNewStudent'
 
 const Dashboard = () => {
     const navigate = useNavigate()
-    const [userName, setUserName] = useState<string | null>("")
+    const [userName, setUserName] = useState<string>('')
     const [students, setStudents] = useState<Student[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -38,23 +38,18 @@ const Dashboard = () => {
         const fetchUserName = async () => {
             try {
                 const userName = await fetchUserData() // Await the promise returned by fetchUserData
-                console.log('Finding the username ', userName)
-                setUserName(userName.email)
+                console.log('Finding the username.... ')
+                if (userName === undefined || userName === null) {
+                    console.error('Could not find the username', userName)
+                } else {
+                    setUserName(userName.email)
+                }
             } catch (error) {
                 console.error('Error fetching user data:', error)
             }
         }
         fetchUserName()
     }, [])
-
-
-
-
-
-    // const showID = readQueries.selectID()
-    // const showDateCreated = readQueries.selectCreated()
-    // const showFirstName = readQueries.selectFirstName()
-
 
     return (
         <>
@@ -83,7 +78,7 @@ const Dashboard = () => {
                     </li>
                 ))}
             </ul>
-            <DBActions />
+            <InsertNewStudent />
             <DBNotification />
         </>
     )

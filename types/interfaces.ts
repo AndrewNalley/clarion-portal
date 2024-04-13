@@ -1,19 +1,19 @@
 export interface Student {
     id: any
-    created_at: String
-    first_name: String
-    last_name: String
-    pronouns: String
-    email: String
+    created_at: string
+    first_name: string
+    last_name: string
+    pronouns: string
+    email: string
     phone: any
-    voice_type: String
+    voice_type: string
     payment_history: Array<JSON>
     past_lesson: any
     future_lesson: any
-    notes: String
+    notes: string
 }
 
 export interface User {
-    email: String
-    password: String
+    email: string
+    password: string
 }

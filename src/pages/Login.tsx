@@ -16,10 +16,11 @@ const Login = () => {
                 password: password,
             })
 
-            if (error) {
-                console.log('Error checking Credentials', error)
+            if (data.user === null) {
+                console.log('User not found')
                 throw redirect('/login')
-            } else {
+            } else if (data.user) {
+                // TODO: remove after development
                 console.log('Checking credentials', data)
                 console.log('data.user information: ', data.user)
                 console.log(data.user.aud)
@@ -28,8 +29,9 @@ const Login = () => {
                 navigate('/dashboard')
             }
         } catch (error) {
-            console.error('Email Login Error: ', error)
-            throw new Error('Email Login Error: ' + error)
+            console.error('Email Login Error: ', error);
+            navigate('/login'); // Redirect to login page
+
         }
     }
 
