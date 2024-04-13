@@ -2,14 +2,13 @@ import { useNavigate, redirect } from 'react-router-dom'
 import supabase from '../db/supabaseClient'
 import { User } from '../../types/interfaces'
 
-
-const checkAuth = async (navigate: (path: string) => void): Promise<boolean> => {
+const checkAuth = async (): Promise<boolean> => {
     try {
 
         const { data: { user } } = await supabase.auth.getUser()
 
         if (!user) {
-            console.log('No User', user)
+            console.error('No user found')
             return false
         } else {
             console.log('Yes user', user)
@@ -20,13 +19,12 @@ const checkAuth = async (navigate: (path: string) => void): Promise<boolean> => 
     }
 }
 
-
 const fetchUserData = async () => {
     try {
         const { data: { user } } = await supabase.auth.getUser()
         if (!user) {
             console.log('No user found: ', user)
-            return false
+            return null
         } else {
             console.log('User found: ', user)
             return user
@@ -35,8 +33,6 @@ const fetchUserData = async () => {
         throw new Error('Error fetching user data: ' + error)
     }
 }
-
-
 
 const handleLogout = () => {
     const navigate = useNavigate()

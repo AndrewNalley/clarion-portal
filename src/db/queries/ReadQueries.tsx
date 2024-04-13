@@ -1,23 +1,24 @@
 import supabase from '../supabaseClient'
 
-async function selectID() {
+
+// ID
+async function selectByID(id: number) {
     try {
-        let { data: id, error } = await supabase
+        let { data, error } = await supabase
             .from('students') // Specify the type parameter here
-            .select('id');
+            .select()
+            .eq('id', id)
 
-        if (error) {
-            console.error('Error:', error)
-            return
-        }
+        if (!data) {
+            console.error('Student not found by that ID: ', error)
+            return null
 
-        if (id) {
-            return id
+        } else {
+            return data
         }
 
     } catch (error) {
-        console.error('Error:', error)
-        return
+        throw new Error('Error selecting by ID: ' + error)
     }
 }
 
@@ -42,129 +43,103 @@ async function selectCreated() {
 
 }
 
-async function selectFirstName() {
+async function selectByFirstName(firstName: string) {
     try {
-        let { data: firstName, error } = await supabase
+        let { data, error } = await supabase
             .from('students')
-            .select('first_name')
+            .select()
+            .eq('first_name', firstName)
 
-        if (error) {
-            console.error('Error:', error)
-            return
-        }
+        if (!data) {
+            console.error('Student not found by that first name: ', error)
+            return null
 
-        if (firstName) {
-            return firstName
+        } else {
+            return data
         }
 
     } catch (error) {
-        console.error('Error:', error)
-        return
+        throw new Error('Error selecting by first name: ' + error)
     }
 }
 
-async function selectLastName() {
+async function selectByLastName(lastName: string) {
     try {
-        let { data: lastName, error } = await supabase
+        let { data, error } = await supabase
             .from('students')
-            .select('last_name')
+            .select()
+            .eq('last_name', lastName)
 
-        if (error) {
-            console.error('Error:', error)
-            return
-        }
+        if (!data) {
+            console.error('Student not found by that last name: ', error)
+            return null
 
-        if (lastName) {
-            return lastName
+        } else {
+            return data
         }
 
     } catch (error) {
-        console.error('Error:', error)
-        return
+        throw new Error('Error selecting by last name: ' + error)
     }
 }
 
-async function selectPronouns() {
+async function selectByEmail(email: string) {
     try {
-        let { data: pronoun, error } = await supabase
+        let { data, error } = await supabase
             .from('students')
-            .select('pronouns')
+            .select()
+            .eq('email', email)
 
-        if (error) {
-            console.error('Error:', error)
-            return
-        }
+        if (!data) {
+            console.error('Cannot find student by that email: ', error)
+            return null
 
-        if (pronoun) {
-            return pronoun
+        } else {
+            return data
         }
 
     } catch (error) {
-        console.error('Error:', error)
-        return
+        throw new Error('Error selecting by email address: ' + error)
     }
 }
 
-async function selectEmail() {
+async function selectByPhone(phone: number) {
     try {
-        let { data: email, error } = await supabase
+        let { data, error } = await supabase
             .from('students')
-            .select('email')
+            .select()
+            .eq('phone', phone)
 
-        if (error) {
-            console.error('Error:', error)
-            return
-        }
+        if (!data) {
+            console.error('Cannot find student with that phone number:', error)
+            return null
 
-        if (email) {
-            return email
+        } else {
+            return data
         }
 
     } catch (error) {
-        console.error('Error:', error)
-        return
+        throw new Error('Error selecting by phone number: ' + error)
     }
 }
 
-async function selectPhone() {
+async function selectByVoiceType(voiceType: string) {
     try {
-        let { data: phone, error } = await supabase
+        let { data, error } = await supabase
             .from('students')
-            .select('phone')
+            .select()
+            .eq('voice_type', voiceType)
 
-        if (error) {
-            console.error('Error:', error)
-            return
-        }
+        if (!data) {
+            console.error('Error finding students by that voice type: ', error)
+            return null
 
-        if (phone) {
-            return phone
+        } else {
+            return data
         }
 
     } catch (error) {
-        console.error('Error:', error)
-        return
-    }
-}
-
-async function selectVoiceType() {
-    try {
-        let { data: voiceType, error } = await supabase
-            .from('students')
-            .select('voice_type')
-
-        if (error) {
-            console.error('Error:', error)
-            return
-        }
-
-        if (voiceType) {
-            return voiceType
-        }
-
-    } catch (error) {
-        console.error('Error:', error)
-        return
+        throw new Error('Error selecting by voice type: ' + error)
     }
 }
 
@@ -252,25 +227,6 @@ async function selectNotes() {
     }
 }
 
-async function readColumns(column1: string, column2: string) {
-    try {
-        let { data: studentColumns, error } = await supabase
-            .from('students')
-            .select(`${column1},${column2}`)
-
-        if (error) {
-            console.error('Error:', error)
-            return
-        }
-
-        if (studentColumns) {
-            return studentColumns
-        }
-    } catch (error) {
-        console.error('Error:', error)
-        return
-    }
-}
 
 async function readAllRows() {
     try {
@@ -278,36 +234,32 @@ async function readAllRows() {
             .from('students')
             .select('*')
 
-        if (error) {
-            console.error('Error:', error)
-            return
-        }
+        if (!allStudents) {
+            console.error('No students in the database: ', error)
+            return null
 
-        if (allStudents) {
+        } else {
             return allStudents
         }
 
     } catch (error) {
-        console.error('Error:', error)
-        return
+        throw new Error('Error selecting all students: ' + error)
     }
 }
 
 
 const ReadQueries = {
-    selectID,
+    selectByID,
     selectCreated,
-    selectFirstName,
-    selectLastName,
-    selectPronouns,
-    selectEmail,
-    selectPhone,
-    selectVoiceType,
+    selectByFirstName,
+    selectByLastName,
+    selectByEmail,
+    selectByPhone,
+    selectByVoiceType,
     selectPaymentHistory,
     selectPastLesson,
     selectFutureLesson,
     selectNotes,
-    readColumns,
     readAllRows
 }
 
