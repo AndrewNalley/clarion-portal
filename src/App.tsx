@@ -1,7 +1,5 @@
 import {
   createBrowserRouter,
-  Route,
-  createRoutesFromElements,
   RouterProvider
 } from 'react-router-dom'
 
@@ -9,24 +7,54 @@ import {
 import RootLayout from './layouts/RootLayout'
 import './App.scss'
 
-// pages
+// main pages
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import NotFound from './pages/NotFound'
 
+// dashboard pages (actions)
+import InsertNewStudent from './components/dbActions/InsertNewStudent'
+import SearchOneStudent from './components/dbActions/SearchOneStudent'
+
 
 // instantiate router 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='' element={<RootLayout />}>
-      <Route path='' element={<Home />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/dashboard' element={<Dashboard />} />
-      <Route path='*' element={<NotFound />} />
-    </Route>
-  )
-)
+// TODO: add more dashboard routes
+const router = createBrowserRouter([
+  {
+    path: '',
+    element: <RootLayout />,
+    children: [
+      {
+        path: '',
+        element: <Home />
+      },
+      {
+        path: '/login',
+        element: <Login />
+      },
+      {
+        path: '/dashboard',
+        element: <Dashboard />,
+        children: [
+          {
+            path: '/dashboard/new-student',
+            element: <InsertNewStudent />
+          },
+          {
+            path: '/dashboard/search-student',
+            element: <SearchOneStudent />
+          }
+        ]
+
+      },
+      {
+        path: '*',
+        element: <NotFound />
+      }
+    ]
+  }
+])
 
 function App() {
 

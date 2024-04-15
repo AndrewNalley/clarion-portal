@@ -43,8 +43,8 @@ const SearchOneStudent = () => {
                         value={firstName}
                         onChange={(e) => setfirstName(e.target.value)}
                     />
-
-                    <button type="submit">Submit</button>
+                </label>
+                <button type="submit">Submit</button>
             </form>
             <form onSubmit={handleLastNameSearch}>
                 <label>First and Last Name
@@ -58,9 +58,10 @@ const SearchOneStudent = () => {
                         onChange={(e) => setLastName(e.target.value)}
                     />
                 </label>
-
                 <button type="submit">Submit</button>
             </form>
         </>
     )
 }
+
+export default SearchOneStudent
