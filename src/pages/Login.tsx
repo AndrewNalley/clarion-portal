@@ -21,18 +21,13 @@ const Login = () => {
                 password: password,
             })
 
-            if (!data) {
+            if (!data.user) {
                 console.error('User not found')
                 throw redirect('/login')
             } else {
                 setCurrentUser(data.user)
-                // TODO: remove after development
-                console.log('Checking credentials', data)
-                console.log('data.user information: ', data.user)
-                console.log(data.user.aud)
                 // After successful login, redirect 
                 console.log('success!')
-                console.log(currentUser)
                 navigate('/dashboard')
             }
         } catch (error) {

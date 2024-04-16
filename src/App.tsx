@@ -22,9 +22,23 @@ import SeeAllStudents from './components/dbActions/SeeAllStudents'
 import SeeOneStudent from './components/dbActions/SeeOneStudent'
 import SearchResults from './components/dbActions/SearchResults'
 
-import type { User } from '@supabase/supabase-js';
+import type { User } from '@supabase/supabase-js'
 // user information to be used throughout app
-export const CurrentUserContext = createContext({})
+type CurrentUserContextType = {
+  currentUser: User
+  setCurrentUser: React.Dispatch<React.SetStateAction<User>>
+}
+
+export const CurrentUserContext = createContext<CurrentUserContextType>({
+  currentUser: {
+    id: 'no_user',
+    app_metadata: {},
+    user_metadata: {},
+    aud: '',
+    created_at: ''
+  },
+setCurrentUser: () => {}
+})
 
 
 
@@ -81,7 +95,7 @@ const router = createBrowserRouter([
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState<User>({} as User)
 
   return (
     <CurrentUserContext.Provider
