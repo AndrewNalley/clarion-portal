@@ -9,9 +9,12 @@ const SearchOneStudent = () => {
         e.preventDefault()
         try {
             const data = await ReadQueries.selectByFirstName(firstName)
-            console.log('DB read returned student(s)' + data)
-            setfirstName('')
-
+            if (!data) {
+                console.error('Could not find first name')
+            } else {
+                console.log('DB read returned student(s)' + data[0].first_name + ': ' + data[0].last_name)
+                setfirstName('')
+            }
 
         } catch (error) {
             console.error('DB read error: ', error)
@@ -22,9 +25,12 @@ const SearchOneStudent = () => {
         e.preventDefault()
         try {
             const data = await ReadQueries.selectByLastName(lastName)
-            console.log('DB read returned student(s)' + data)
-            setLastName('')
-
+            if (!data) {
+                console.error('Could not find by last name')
+            } else {
+                console.log('DB read returned student(s)' + data[0].first_name + ': ' + data[0].last_name)
+                setLastName('')
+            }
         } catch (error) {
             console.error('DB read error: ', error)
         }

@@ -1,12 +1,17 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import supabase from '../db/supabaseClient'
 import { useNavigate, redirect } from 'react-router-dom'
+import { CurrentUserContext } from '../App'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
-
+    const {
+        currentUser,
+        setCurrentUser
+      } = useContext(CurrentUserContext)
+    
 
     const handleEmailLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -16,21 +21,23 @@ const Login = () => {
                 password: password,
             })
 
-            if (data.user === null) {
-                console.log('User not found')
+            if (!data) {
+                console.error('User not found')
                 throw redirect('/login')
-            } else if (data.user) {
+            } else {
+                setCurrentUser(data.user)
                 // TODO: remove after development
                 console.log('Checking credentials', data)
                 console.log('data.user information: ', data.user)
                 console.log(data.user.aud)
                 // After successful login, redirect 
                 console.log('success!')
+                console.log(currentUser)
                 navigate('/dashboard')
             }
         } catch (error) {
             console.error('Email Login Error: ', error);
-            navigate('/login'); // Redirect to login page
+            navigate('/login') 
 
         }
     }

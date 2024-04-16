@@ -55,9 +55,11 @@ SOFTWARE.
 
 ## Features
 
+React 18
+
 Typescript
 
-React BrowserRouter
+createBrowserRouter
 
 Pico CSS
 
