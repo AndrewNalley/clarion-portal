@@ -12,8 +12,3 @@ export interface Student {
     future_lesson: any
     notes: string
 }
-
-export interface User {
-    email: string
-    password: string
-}

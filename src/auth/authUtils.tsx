@@ -1,6 +1,5 @@
-import { useNavigate, redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import supabase from '../db/supabaseClient'
-import { User } from '../../types/interfaces'
 
 const checkAuth = async (): Promise<boolean> => {
     try {
@@ -39,9 +38,13 @@ const handleLogout = () => {
     const logout = async () => {
         try {
             let { error } = await supabase.auth.signOut()
-            console.log('logout completed')
-            navigate('/')
-            console.log('Was there an error logging out? ', error)
+            if (error) {
+                console.error('Error logging out: ', error)
+            } else {
+                console.log('logout completed')
+                navigate('/')
+            }
+
         } catch (error) {
             throw new Error('Error logging out: ' + error)
         }
