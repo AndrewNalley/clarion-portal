@@ -1,9 +1,9 @@
 import { useContext } from 'react'
-import { StudentContext } from '../../pages/Dashboard'
+import { CurrentStudentContext } from '../../pages/Dashboard'
 
 const SearchResults = () => {
 
-    const data = useContext(StudentContext)
+    const data = useContext(CurrentStudentContext)
 
     return (
         <>

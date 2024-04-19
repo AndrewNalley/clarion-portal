@@ -15,7 +15,7 @@ type CurrentStudentContextType = {
 
 export const CurrentStudentContext = createContext<CurrentStudentContextType>({
     currentStudent: {
-        id: 'no_student',
+        id: 0,
         created_at: '',
         first_name: '',
         last_name: '',
