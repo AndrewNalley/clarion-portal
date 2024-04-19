@@ -17,7 +17,7 @@ const SearchOneStudent = () => {
             if (!data) {
                 console.error('Could not find first name')
             } else {
-                console.log('DB read returned student(s)' + data[0].first_name + ': ' + data[0].last_name)
+                console.log('DB read returned student(s)' + data[0].first_name + ' ' + data[0].last_name)
                 setCurrentStudent(data[0])
                 setfirstName('')
             }
@@ -35,6 +35,7 @@ const SearchOneStudent = () => {
                 console.error('Could not find by last name')
             } else {
                 console.log('DB read returned student(s)' + data[0].first_name + ': ' + data[0].last_name)
+                setCurrentStudent(data[0])
                 setLastName('')
             }
         } catch (error) {
