@@ -1,7 +1,12 @@
-import { useState } from 'react'
+import { useState, useContext,  } from 'react'
 import ReadQueries from '../../db/queries/ReadQueries'
+import { CurrentStudentContext } from '../../pages/Dashboard'
 
 const SearchOneStudent = () => {
+    const {
+        currentStudent,
+        setCurrentStudent
+      } = useContext(CurrentStudentContext)
     const [firstName, setfirstName] = useState('')
     const [lastName, setLastName] = useState('')
 
@@ -13,6 +18,7 @@ const SearchOneStudent = () => {
                 console.error('Could not find first name')
             } else {
                 console.log('DB read returned student(s)' + data[0].first_name + ': ' + data[0].last_name)
+                setCurrentStudent(data[0])
                 setfirstName('')
             }
 
@@ -39,7 +45,7 @@ const SearchOneStudent = () => {
     return (
         <>
             <form onSubmit={handleFirstNameSearch}>
-                <label>First and Last Name
+                <label>First Name
                     <input
                         type='text'
                         name='firstName'
@@ -53,7 +59,7 @@ const SearchOneStudent = () => {
                 <button type="submit">Submit</button>
             </form>
             <form onSubmit={handleLastNameSearch}>
-                <label>First and Last Name
+                <label>Last Name
                     <input
                         type='text'
                         name='lastName'
