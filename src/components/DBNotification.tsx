@@ -21,9 +21,9 @@ const DBNotification = () => {
 
         return () => {
             // Clean up the subscription when component unmounts
-            dbNotifications.unsubscribe();
-        };
-    }, []); // Effect runs only once on component mount
+            dbNotifications.unsubscribe()
+        }
+    }, []) // Effect runs only once on component mount
 
 
 
