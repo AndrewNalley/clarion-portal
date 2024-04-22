@@ -43,8 +43,6 @@ const Dashboard = () => {
         }
     }, [userName, navigate])
 
-    console.log(currentStudent)
-
     return (
         <>
             <button onClick={handleLogout()}>Logout</button>
