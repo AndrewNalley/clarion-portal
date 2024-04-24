@@ -67,10 +67,6 @@ const router = createBrowserRouter([
             element: <SeeAllStudents />
           },
           {
-            path: '/dashboard/one-student',
-            element: <SeeOneStudent />
-          },
-          {
             path: '/dashboard/new-student',
             element: <InsertNewStudent />
           },
@@ -78,10 +74,6 @@ const router = createBrowserRouter([
             path: '/dashboard/search-student',
             element: <SearchOneStudent />
           },
-          {
-            path: '/dashboard/search-results',
-            element: <SearchResults />
-          }
         ]
 
       },
