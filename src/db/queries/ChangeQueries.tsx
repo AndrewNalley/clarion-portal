@@ -31,12 +31,12 @@ async function insertRow(firstName: string, lastName: string, pronouns: string, 
 }
 
 // first two params take in the proposed new data, the second two params take in the identifying/matching information of the data fields to update
-async function updateRow(newColumnValue: string, newValue: string, targetColumn: string, targetValue: string) {
+async function updateRow(newColumnValue: string, newValue: string, targetID: number) {
     try {
         const { data, error } = await supabase
             .from('students')
             .update({ [newColumnValue]: newValue })
-            .eq(targetColumn, targetValue)
+            .eq('id', targetID)
             .select()
 
         if (error) {
