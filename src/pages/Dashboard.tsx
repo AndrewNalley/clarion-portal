@@ -4,7 +4,6 @@ import { handleLogout } from '../auth/authUtils'
 import type { Student } from '../../types/interfaces'
 import { CurrentUserContext } from '../App'
 
-import DBNotification from '../components/DBNotification'
 import DashboardNav from '../components/DashboardNav'
 import StudentView from '../components/StudentView'
 
@@ -49,7 +48,6 @@ const Dashboard = () => {
             <h1>Welcome, {userName.currentUser.email}</h1>
 
             <DashboardNav />
-            <DBNotification />
             <CurrentStudentContext.Provider value={{
                 currentStudent,
                 setCurrentStudent
