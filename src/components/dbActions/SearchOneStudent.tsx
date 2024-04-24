@@ -4,10 +4,7 @@ import ReadQueries from '../../db/queries/ReadQueries'
 import { CurrentStudentContext } from '../../pages/Dashboard'
 
 const SearchOneStudent = () => {
-    const {
-        currentStudent,
-        setCurrentStudent
-    } = useContext(CurrentStudentContext)
+    const { setCurrentStudent } = useContext(CurrentStudentContext)
 
 
     const [firstName, setfirstName] = useState('')
@@ -89,6 +86,7 @@ const SearchOneStudent = () => {
                         <div key={student.id}>
                             <li>
                                 <strong>{student.first_name} {student.last_name}</strong>
+                                <button onClick = {() => setCurrentStudent(student)}>Edit Student</button>
                                 <ul>
                                     <li>ID: {student.id}</li>
                                     <li>Created At: {student.created_at}</li>
