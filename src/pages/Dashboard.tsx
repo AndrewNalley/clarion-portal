@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { handleLogout } from '../auth/authUtils'
 import type { Student } from '../../types/interfaces'
 import { CurrentUserContext } from '../App'
@@ -53,6 +53,7 @@ const Dashboard = () => {
                 setCurrentStudent
             }}>
                 <StudentView />
+                <NavLink to='edit-student'><button>Edit Student</button></NavLink>
                 <Outlet />
             </CurrentStudentContext.Provider>
         </>

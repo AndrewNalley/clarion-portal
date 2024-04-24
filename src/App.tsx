@@ -19,8 +19,7 @@ import NotFound from './pages/NotFound'
 import InsertNewStudent from './components/dbActions/InsertNewStudent'
 import SearchOneStudent from './components/dbActions/SearchOneStudent'
 import SeeAllStudents from './components/dbActions/SeeAllStudents'
-import SeeOneStudent from './components/dbActions/SeeOneStudent'
-import SearchResults from './components/dbActions/SearchResults'
+import EditStudent from './components/dbActions/EditStudent'
 
 import type { User } from '@supabase/supabase-js'
 // user information to be used throughout app
@@ -39,8 +38,6 @@ export const CurrentUserContext = createContext<CurrentUserContextType>({
   },
 setCurrentUser: () => {}
 })
-
-
 
 
 // instantiate router 
@@ -74,8 +71,11 @@ const router = createBrowserRouter([
             path: '/dashboard/search-student',
             element: <SearchOneStudent />
           },
+          {
+            path: '/dashboard/edit-student',
+            element: <EditStudent />
+          }
         ]
-
       },
       {
         path: '*',
