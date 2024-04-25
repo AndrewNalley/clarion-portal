@@ -2,21 +2,24 @@ import { useState, useContext, } from 'react'
 import { Student } from '../../../types/interfaces'
 import ReadQueries from '../../db/queries/ReadQueries'
 import { CurrentStudentContext } from '../../pages/Dashboard'
+import { useNavigate } from 'react-router-dom'
 
 const SearchOneStudent = () => {
     const { setCurrentStudent } = useContext(CurrentStudentContext)
-
+    const navigate = useNavigate()
 
     const [firstName, setfirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [searchResults, setSearchResults] = useState<Student[]>([])
+    const [showModal, setShowModal] = useState(false)
 
     const handleFirstNameSearch = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             const data = await ReadQueries.selectByFirstName(firstName)
-            if (!data) {
+            if (!data || Array.isArray(data) && data.length === 0) {
                 console.error('Could not find first name')
+                setShowModal(true)
             } else {
                 setSearchResults(data || [])
                 setfirstName('')
@@ -31,8 +34,9 @@ const SearchOneStudent = () => {
         e.preventDefault()
         try {
             const data = await ReadQueries.selectByLastName(lastName)
-            if (!data) {
+            if (!data || Array.isArray(data) && data.length === 0) {
                 console.error('Could not find by last name')
+                setShowModal(true)
             } else {
                 setSearchResults(data || [])
                 setLastName('')
@@ -86,7 +90,11 @@ const SearchOneStudent = () => {
                         <div key={student.id}>
                             <li>
                                 <strong>{student.first_name} {student.last_name}</strong>
-                                <button onClick = {() => setCurrentStudent(student)}>Edit Student</button>
+                                <button onClick={() => {
+                                    setCurrentStudent(student)
+                                    clearStudents()
+                                    navigate('/dashboard/edit-student')
+                                }}>Edit Student</button>
                                 <ul>
                                     <li>ID: {student.id}</li>
                                     <li>Created At: {student.created_at}</li>
@@ -102,8 +110,20 @@ const SearchOneStudent = () => {
                     <button onClick={clearStudents}>Clear Students</button>
                 </>
             )}
-            {searchResults.length === 0 && (
-                <h3>No Students Found</h3>
+            {showModal && (
+                <dialog open>
+                    <article>
+                        <h2>No Students found by that query.</h2>
+                        <p>
+                            Please try another search.
+                        </p>
+                        <footer>
+                            <button className="secondary" onClick={() => setShowModal(false)}>
+                                Close
+                            </button>
+                        </footer>
+                    </article>
+                </dialog>
             )}
         </>
     )

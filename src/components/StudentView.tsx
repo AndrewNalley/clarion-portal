@@ -1,14 +1,17 @@
 import { useContext, useEffect, useState } from 'react'
 import { CurrentStudentContext } from '../pages/Dashboard'
+import { useNavigate } from 'react-router-dom'
 
 const StudentView = () => {
     const [showStudent, setShowStudent] = useState(false)
     const {
         currentStudent,
         setCurrentStudent
-      } = useContext(CurrentStudentContext)
+    } = useContext(CurrentStudentContext)
 
-    useEffect(() =>  {
+    const navigate = useNavigate()
+
+    useEffect(() => {
         if (currentStudent.id !== 0 && currentStudent.id !== null && Object.keys(currentStudent).length !== 0) {
             setShowStudent(true)
         } else {
@@ -50,10 +53,13 @@ const StudentView = () => {
                         <li>Voice Type: {currentStudent.voice_type}</li>
                         <li>Notes: {currentStudent.notes}</li>
                     </ul>
-                    <button onClick={clearStudent}>Clear Student</button>
+                    <button onClick={() => {
+                        clearStudent()
+                        navigate('/dashboard/search-student')
+                    }}>Clear Student</button>
                 </>
             ) : (
-                <h3>No Student Information Available</h3>
+                <h3>Current Student View</h3>
             )}
         </section>
     )
